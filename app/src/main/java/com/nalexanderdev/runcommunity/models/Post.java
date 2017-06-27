@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by room3.04 on 14/06/2017.
+ * Created by niholas.alexander x13125354@student.ncirl.ie on 27/06/2017.
  */
 @IgnoreExtraProperties
 public class Post {

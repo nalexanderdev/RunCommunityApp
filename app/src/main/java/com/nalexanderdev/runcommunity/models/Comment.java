@@ -3,7 +3,7 @@ package com.nalexanderdev.runcommunity.models;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 /**
- * Created by room3.04 on 21/06/2017.
+ * Created by niholas.alexander x13125354@student.ncirl.ie on 21/06/2017.
  */
 @IgnoreExtraProperties
 public class Comment {
