@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,11 +19,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.nalexanderdev.runcommunity.R;
+import com.squareup.picasso.Picasso;
 
 public class ProfileActivity extends BaseActivity {
 
@@ -36,6 +40,9 @@ public class ProfileActivity extends BaseActivity {
     private StorageReference mStorage;
     private static final int GALLERY_INTENT = 2;
     private ProgressDialog mProgressDialog;
+    private ImageView mImageView;
+
+    private String imageUr = "https://firebasestorage.googleapis.com/v0/b/runcommunity-f337f.appspot.com/o/Photos%2F19168?alt=media&token=99283374-1602-4a48-9fdb-090d1731f16b";
 
 
     @Override
@@ -43,7 +50,7 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
+        mImageView = (ImageView) findViewById(R.id.imageView2);
 
         emailF = (EditText) findViewById(R.id.emailField);
         nameF = (EditText) findViewById(R.id.nameField);
@@ -87,6 +94,19 @@ public class ProfileActivity extends BaseActivity {
         if(user != null){
             nameF.setText(user.getDisplayName());
             emailF.setText(user.getEmail());
+            if(user.getPhotoUrl() != null) {
+                Log.d("Profile", user.getPhotoUrl().toString());
+                Picasso.with(ProfileActivity.this).load(user.getPhotoUrl().toString()).fit().centerCrop()
+                        .into(mImageView);
+            }else{
+                for (UserInfo userInfo : user.getProviderData()) {
+                    if (userInfo.getPhotoUrl() != null) {
+                        Log.d("Profile", userInfo.getPhotoUrl().toString());
+                        Picasso.with(ProfileActivity.this).load(userInfo.getPhotoUrl().toString()).fit().centerCrop()
+                                .into(mImageView);
+                    }
+                }
+            }
         }
 
 
@@ -140,6 +160,8 @@ public class ProfileActivity extends BaseActivity {
                 });
 
     }
+
+    
 
 
 
@@ -201,18 +223,53 @@ public class ProfileActivity extends BaseActivity {
             mProgressDialog.show();
 
             Uri uri = data.getData();
+            imageUr = uri.getLastPathSegment();
 
-            StorageReference filepath = mStorage.child("Photos").child(uri.getLastPathSegment());
+            StorageReference filepath = mStorage.child("Photos").child(imageUr);
 
-            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            UploadTask uploadTask = filepath.putFile(uri);
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ProfileActivity.this, "Upload done", Toast.LENGTH_LONG).show();
+
                     mProgressDialog.dismiss();
+
+                    @SuppressWarnings("VisibleForTests") Uri downloadUri = taskSnapshot.getDownloadUrl();
+
+                    Log.d("path",downloadUri.toString() );
+
+                    imageUr = downloadUri.toString();
+
+                    updateImage(downloadUri);
+
+                    Picasso.with(ProfileActivity.this).load(downloadUri.toString()).fit().centerCrop().into(mImageView);
+
+                    Toast.makeText(ProfileActivity.this, "Upload done", Toast.LENGTH_LONG).show();
                 }
 
             });
         }
+    }
+
+    void updateImage(Uri uri){
+        showMessageDialog("Updating Name...");
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder()
+                .setPhotoUri(uri)
+                .build();
+        user.updateProfile(request)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        hideProgressDialog();
+                        if(!task.isSuccessful()){
+                            showToast("Failed to update Profile Name!");
+                        }else{
+                            showToast("Profile Picture Updated!");
+                        }
+                    }
+                });
+
     }
 }
 

@@ -65,6 +65,8 @@ public class PostActivity extends BaseActivity {
 
         postReference = FirebaseDatabase.getInstance().getReference().child("posts");
 
+        //postReference.se;
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
 
