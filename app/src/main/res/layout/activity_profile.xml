@@ -69,8 +69,8 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/selectImage"
         android:layout_centerHorizontal="true"
         app:srcCompat="@color/common_google_signin_btn_text_light_disabled" />
