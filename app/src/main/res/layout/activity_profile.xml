@@ -70,9 +70,8 @@
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_above="@+id/nameField"
+        android:layout_height="300dp"
+        android:layout_below="@+id/selectImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="31dp"
         app:srcCompat="@color/common_google_signin_btn_text_light_disabled" />
 </RelativeLayout>

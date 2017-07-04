@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by room3.04 on 21/06/2017.
+ * Created by Nick Alexander x13125354@student.ncirl.ie 21/06/2017.
  */
 
 public class CreatePostDialog extends DialogFragment {

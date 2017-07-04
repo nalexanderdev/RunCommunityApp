@@ -16,6 +16,6 @@ public class WebViewActivity extends AppCompatActivity {
         WebView webView = (WebView) findViewById(R.id.webview);
 
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://www.charminghairbeauty.com/book-online/");
+        webView.loadUrl("https://www.myrunresults.com/events.aspx");
     }
 }

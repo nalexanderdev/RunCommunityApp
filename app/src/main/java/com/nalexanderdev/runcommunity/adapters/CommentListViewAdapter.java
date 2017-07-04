@@ -13,7 +13,7 @@ import com.nalexanderdev.runcommunity.models.Comment;
 import java.util.List;
 
 /**
- * Created by Benit Kibabu on 13/06/2017.
+ * Created by Nick Alexander x13125354@student.ncirl.ie 13/06/2017.
  */
 
 public class CommentListViewAdapter extends ArrayAdapter<Comment>{

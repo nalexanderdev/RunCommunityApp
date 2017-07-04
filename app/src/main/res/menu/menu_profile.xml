@@ -15,5 +15,5 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_new_post"
-        android:title="Add Post" />
+        android:title="Events" />
 </menu>
