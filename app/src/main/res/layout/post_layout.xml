@@ -20,7 +20,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name" />
-
     <Button
         android:id="@+id/createBtn"
         android:layout_width="match_parent"

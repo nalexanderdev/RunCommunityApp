@@ -99,7 +99,9 @@ public class PostDetailActivity extends BaseActivity {
                 comments = new ArrayList<>();
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     Comment c = child.getValue(Comment.class);
-                    comments.add(c);
+                    if (c.getPid().equals(postKey)) {
+                        comments.add(c);
+                    }
                 }
 
                 adapter.updateList(comments);

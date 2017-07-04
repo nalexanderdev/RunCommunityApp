@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import android.widget.Toast;
 import com.nalexanderdev.runcommunity.R;
 import com.nalexanderdev.runcommunity.adapters.PostListViewAdapter;
 import com.nalexanderdev.runcommunity.fragmenst.CreatePostDialog;
+import com.nalexanderdev.runcommunity.fragmenst.DeletePostDialog;
 import com.nalexanderdev.runcommunity.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,8 +67,6 @@ public class PostActivity extends BaseActivity {
 
         postReference = FirebaseDatabase.getInstance().getReference().child("posts");
 
-        postReference.rem;
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
 
@@ -90,6 +90,24 @@ public class PostActivity extends BaseActivity {
                 i.putExtra("post", p.getPost());
                 startActivity(i);
 
+            }
+        });
+
+        // add long click action
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String key = keyList.get(position);
+                Post p = postList.get(position);
+                Boolean isOwnPost = p.getUid().equals(user.getUid());
+                if (isOwnPost) {
+                    FragmentManager manager = getSupportFragmentManager();
+                    DeletePostDialog f = DeletePostDialog.newInstance(key);
+                    f.show(manager, "Delete Post");
+                }
+//                String text = isOwnPost ? "It's mine" : "Not mine";
+//                Toast.makeText(getApplicationContext(), text,Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
     }
