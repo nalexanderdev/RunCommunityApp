@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.nalexanderdev.runcommunity.R;
 import com.nalexanderdev.runcommunity.adapters.PostListViewAdapter;
 import com.nalexanderdev.runcommunity.fragmenst.CreatePostDialog;
+import com.nalexanderdev.runcommunity.fragmenst.DeletePostDialog;
 import com.nalexanderdev.runcommunity.models.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,8 +100,13 @@ public class PostActivity extends BaseActivity {
                 String key = keyList.get(position);
                 Post p = postList.get(position);
                 Boolean isOwnPost = p.getUid().equals(user.getUid());
-                String text = isOwnPost ? "It's mine" : "Not mine";
-                Toast.makeText(getApplicationContext(), text,Toast.LENGTH_SHORT).show();
+                if (isOwnPost) {
+                    FragmentManager manager = getSupportFragmentManager();
+                    DeletePostDialog f = DeletePostDialog.newInstance(key);
+                    f.show(manager, "Delete Post");
+                }
+//                String text = isOwnPost ? "It's mine" : "Not mine";
+//                Toast.makeText(getApplicationContext(), text,Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
