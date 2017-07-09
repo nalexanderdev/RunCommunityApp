@@ -1,4 +1,4 @@
-package com.nalexanderdev.runcommunity.fragmenst;
+package com.nalexanderdev.runcommunity.fragments;
 
 
 import android.os.Bundle;

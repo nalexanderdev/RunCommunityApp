@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nalexanderdev.runcommunity.R;
 import com.nalexanderdev.runcommunity.adapters.PostListViewAdapter;
-import com.nalexanderdev.runcommunity.fragmenst.CreatePostDialog;
-import com.nalexanderdev.runcommunity.fragmenst.DeletePostDialog;
+import com.nalexanderdev.runcommunity.fragments.CreatePostDialog;
+import com.nalexanderdev.runcommunity.fragments.DeletePostDialog;
 import com.nalexanderdev.runcommunity.models.Post;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class PostActivity extends BaseActivity {
     private DatabaseReference postReference;
     private ValueEventListener eventListener;
     private ChildEventListener mChildEventListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,5 +209,11 @@ public class PostActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
 
+
+
     }
+
+
+
+
 }
