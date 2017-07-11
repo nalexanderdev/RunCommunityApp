@@ -95,4 +95,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="title_activity_maps">Map</string>
+    <string name="create_post">Create</string>
+    <string name="post_hint">What\'s up</string>
 </resources>

@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nalexanderdev.runcommunity.R;
 import com.nalexanderdev.runcommunity.adapters.PostListViewAdapter;
-import com.nalexanderdev.runcommunity.fragments.CreatePostDialog;
 import com.nalexanderdev.runcommunity.fragments.DeletePostDialog;
 import com.nalexanderdev.runcommunity.models.Post;
 
@@ -201,9 +200,11 @@ public class PostActivity extends BaseActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_new_post){
-            FragmentManager manager = getSupportFragmentManager();
-            CreatePostDialog f = CreatePostDialog.newInstance(user.getUid(), user.getDisplayName());
-            f.show(manager, "Post Dialog");
+            startActivity(new Intent(this, NewPostActivity.class));
+            return true;
+        }
+        if(id == R.id.profile){
+            startActivity(new Intent(this, ProfileActivity.class));
             return true;
         }
 

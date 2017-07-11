@@ -13,7 +13,7 @@ public class Post {
     String uid;
     String username;
     String post;
-
+    String imageUrl;
     public Post() {
     }
 
@@ -21,6 +21,17 @@ public class Post {
         this.uid = uid;
         this.username = username;
         this.post = post;
+    }
+
+    public Post(String uid, String username, String post, String imageUrl) {
+        this.uid = uid;
+        this.username = username;
+        this.post = post;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getUsername() {

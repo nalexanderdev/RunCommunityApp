@@ -39,7 +39,7 @@ public class LoginActivity extends BaseActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     //
-                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(LoginActivity.this, PostActivity.class));
                     finish();
                 }
             }
