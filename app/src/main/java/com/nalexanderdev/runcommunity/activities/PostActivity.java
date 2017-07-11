@@ -203,6 +203,10 @@ public class PostActivity extends BaseActivity {
             startActivity(new Intent(this, NewPostActivity.class));
             return true;
         }
+        if(id == R.id.profile){
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
 
