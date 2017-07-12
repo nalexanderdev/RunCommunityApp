@@ -130,7 +130,11 @@ public class PostActivity extends BaseActivity {
                     Log.d("P", p.getPost());
                     postList.add(p);
                 }
-                adapter.updateList(postList);
+                List<Post> sortedList = new ArrayList<Post>();
+                for(int i= postList.size()-1; i>=0; i--){
+                    sortedList.add(postList.get(i));
+                }
+                adapter.updateList(sortedList);
             }
 
             @Override
