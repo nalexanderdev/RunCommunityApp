@@ -83,8 +83,8 @@ public class PostActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String key = keyList.get(position);
-                Post p = postList.get(position);
+                Post p = adapter.getItem(position);
+                String key = p.getKey();
                 Intent i = new Intent(PostActivity.this, PostDetailActivity.class);
                 i.putExtra("pid", key);
                 i.putExtra("post", p.getPost());
@@ -97,8 +97,8 @@ public class PostActivity extends BaseActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String key = keyList.get(position);
-                Post p = postList.get(position);
+                Post p = adapter.getItem(position);
+                String key = p.getKey();
                 Boolean isOwnPost = p.getUid().equals(user.getUid());
                 if (isOwnPost) {
                     FragmentManager manager = getSupportFragmentManager();
@@ -125,8 +125,9 @@ public class PostActivity extends BaseActivity {
                 for(DataSnapshot child : dataSnapshot.getChildren()){
                     Log.d("child", child.getValue(Post.class).toMap().toString());
 
-                    keyList.add(child.getKey());
+                    keyList.add(child.getKey());  // Useless
                     Post p = child.getValue(Post.class);
+                    p.setKey(child.getKey());
                     Log.d("P", p.getPost());
                     postList.add(p);
                 }

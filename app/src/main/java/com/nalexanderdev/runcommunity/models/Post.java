@@ -10,6 +10,8 @@ import java.util.Map;
  */
 @IgnoreExtraProperties
 public class Post {
+
+    String key;
     String uid;
     String username;
     String post;
@@ -44,6 +46,14 @@ public class Post {
 
     public String getUid() {
         return uid;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Map<String, Object> toMap(){
