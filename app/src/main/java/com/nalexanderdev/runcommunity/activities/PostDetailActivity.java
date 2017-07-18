@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -44,6 +45,7 @@ public class PostDetailActivity extends BaseActivity {
     private FirebaseUser user;
     private ImageView toolbarImageView;
     private Post post;
+    private FrameLayout imageContainerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class PostDetailActivity extends BaseActivity {
         adapter = new CommentListViewAdapter(this,R.layout.post_item, comments);
         listView = (ListView) findViewById(R.id.listView);
         toolbarImageView = (ImageView) findViewById(R.id.ivBigImage);
+        imageContainerLayout = (FrameLayout) findViewById(R.id.imageContainer);
         listView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -110,9 +113,9 @@ public class PostDetailActivity extends BaseActivity {
             if (selectedImageUri != null) {
                 Log.d("POST_IMAGE", "Ready to display");
                 Picasso.with(PostDetailActivity.this).load(selectedImageUri.toString()).fit().centerCrop().into(toolbarImageView);
-                toolbarImageView.setVisibility(View.VISIBLE);
+                imageContainerLayout.setVisibility(View.VISIBLE);
 
-                toolbarImageView.setOnClickListener(new View.OnClickListener() {
+                imageContainerLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(PostDetailActivity.this, FullscreenImageActivity.class);
