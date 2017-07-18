@@ -102,7 +102,7 @@ public class PostDetailActivity extends BaseActivity {
 
     private void SetImageView() {
         // set title background image
-        String imageUrl = post.getImageUrl();
+        final String imageUrl = post.getImageUrl();
         Log.d("POST_IMAGE", String.format("Image url %s", imageUrl));
         if (imageUrl != null) {
             Uri selectedImageUri = Uri.parse(imageUrl);
@@ -111,6 +111,16 @@ public class PostDetailActivity extends BaseActivity {
                 Log.d("POST_IMAGE", "Ready to display");
                 Picasso.with(PostDetailActivity.this).load(selectedImageUri.toString()).fit().centerCrop().into(toolbarImageView);
                 toolbarImageView.setVisibility(View.VISIBLE);
+
+                toolbarImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(PostDetailActivity.this, FullscreenImageActivity.class);
+                        intent.putExtra("imageUrl",imageUrl);
+                        intent.putExtra("title", post.getPost());
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }
