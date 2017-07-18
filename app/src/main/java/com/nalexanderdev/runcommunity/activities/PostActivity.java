@@ -88,6 +88,8 @@ public class PostActivity extends BaseActivity {
                 Intent i = new Intent(PostActivity.this, PostDetailActivity.class);
                 i.putExtra("pid", key);
                 i.putExtra("post", p.getPost());
+                i.putExtra("postObject", p);
+
                 startActivity(i);
 
             }

@@ -1,12 +1,15 @@
 package com.nalexanderdev.runcommunity.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.nalexanderdev.runcommunity.R;
@@ -20,13 +23,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nalexanderdev.runcommunity.models.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostDetailActivity extends BaseActivity {
 
-    String postKey, post;
+    String postKey, postTitle;
 
     ListView listView;
     CommentListViewAdapter adapter;
@@ -37,6 +42,8 @@ public class PostDetailActivity extends BaseActivity {
     private ChildEventListener childEventListener;
 
     private FirebaseUser user;
+    private ImageView toolbarImageView;
+    private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +52,7 @@ public class PostDetailActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(!getIntent().hasExtra("pid") || !getIntent().hasExtra("post") ){
+        if(!getIntent().hasExtra("pid") || !getIntent().hasExtra("post") || !getIntent().hasExtra("postObject")){
             finish();
         }
 
@@ -55,15 +62,17 @@ public class PostDetailActivity extends BaseActivity {
         }
 
         postKey = getIntent().getStringExtra("pid");
-        post = getIntent().getStringExtra("post");
+        postTitle = getIntent().getStringExtra("post");
+        post = getIntent().getParcelableExtra("postObject");
 
-        setTitle(post);
+        setTitle(postTitle);
 
         commentDb = FirebaseDatabase.getInstance().getReference().child("comments");
 
         comments = new ArrayList<>();
         adapter = new CommentListViewAdapter(this,R.layout.post_item, comments);
         listView = (ListView) findViewById(R.id.listView);
+        toolbarImageView = (ImageView) findViewById(R.id.ivBigImage);
         listView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -78,6 +87,8 @@ public class PostDetailActivity extends BaseActivity {
             }
         });
 
+        SetImageView();
+
         Button mapButton = (Button) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +98,21 @@ public class PostDetailActivity extends BaseActivity {
                 startActivity(i);
             }
         }) ;
+    }
+
+    private void SetImageView() {
+        // set title background image
+        String imageUrl = post.getImageUrl();
+        Log.d("POST_IMAGE", String.format("Image url %s", imageUrl));
+        if (imageUrl != null) {
+            Uri selectedImageUri = Uri.parse(imageUrl);
+            Log.d("POST_IMAGE", String.format("Image url %s", selectedImageUri));
+            if (selectedImageUri != null) {
+                Log.d("POST_IMAGE", "Ready to display");
+                Picasso.with(PostDetailActivity.this).load(selectedImageUri.toString()).fit().centerCrop().into(toolbarImageView);
+                toolbarImageView.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
