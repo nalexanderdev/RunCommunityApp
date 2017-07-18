@@ -97,4 +97,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="create_post">Create</string>
     <string name="post_hint">What\'s up</string>
+
+    <string name="title_activity_fullscreen_image">FullscreenImageActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
