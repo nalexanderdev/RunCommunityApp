@@ -13,7 +13,16 @@
         android:id="@+id/action_posts"
         android:title="Posts"
         app:showAsAction="never" />
+
     <item
         android:id="@+id/action_new_post"
-        android:title="Events" />
+        android:title="New Post"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_web_view"
+        android:title="Events"
+        app:showAsAction="never" />
+
+
 </menu>

@@ -43,4 +43,14 @@
             android:layout_margin="16dp"
             android:id="@+id/floatingActionButton"
     />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Button"
+        android:layout_below="@+id/floatingActionButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

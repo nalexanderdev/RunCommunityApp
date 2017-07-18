@@ -192,6 +192,11 @@ public class ProfileActivity extends BaseActivity {
         }
 
         else if(id == R.id.action_new_post){
+            startActivity(new Intent(this, NewPostActivity.class));
+            return true;
+        }
+
+        else if(id == R.id.action_web_view){
             startActivity(new Intent(this, WebViewActivity.class));
             return true;
         }
