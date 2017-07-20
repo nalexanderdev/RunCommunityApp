@@ -50,7 +50,7 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mImageView = (ImageView) findViewById(R.id.imageView2);
+        mImageView = (ImageView) findViewById(R.id.circleImageView);
 
         emailF = (EditText) findViewById(R.id.emailField);
         nameF = (EditText) findViewById(R.id.nameField);

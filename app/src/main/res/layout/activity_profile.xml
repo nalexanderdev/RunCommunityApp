@@ -67,14 +67,35 @@
         android:layout_centerHorizontal="true"
         android:text="Select Image From Gallery" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="400dp"
-        android:layout_height="450dp"
-        android:layout_below="@+id/selectImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@color/common_google_signin_btn_text_light_disabled" />
+    <!--<CircleImageView-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/selectImage"
+
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!--<ImageView-->
+
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_width="400dp"-->
+        <!--android:layout_height="450dp"-->
+        <!--android:layout_below="@+id/selectImage"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="150dp"-->
+        <!--android:layout_marginEnd="50dp"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--app:srcCompat="@color/common_google_signin_btn_text_light_disabled" />-->
 </RelativeLayout>
