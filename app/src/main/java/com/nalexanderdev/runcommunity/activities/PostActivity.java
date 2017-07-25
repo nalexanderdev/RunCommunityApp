@@ -103,9 +103,9 @@ public class PostActivity extends BaseActivity {
                 String key = p.getKey();
                 Boolean isOwnPost = p.getUid().equals(user.getUid());
                 if (isOwnPost) {
-                    FragmentManager manager = getSupportFragmentManager();
-                    DeletePostDialog f = DeletePostDialog.newInstance(key);
-                    f.show(manager, "Delete Post");
+                    Intent intent = new Intent(PostActivity.this, NewPostActivity.class);
+                    intent.putExtra("post",p);
+                    startActivity(intent);
                 }
 //                String text = isOwnPost ? "It's mine" : "Not mine";
 //                Toast.makeText(getApplicationContext(), text,Toast.LENGTH_SHORT).show();
