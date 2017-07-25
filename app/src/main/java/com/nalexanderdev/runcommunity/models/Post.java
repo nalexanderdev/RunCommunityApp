@@ -2,6 +2,7 @@ package com.nalexanderdev.runcommunity.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.HashMap;
@@ -70,6 +71,7 @@ public class Post implements Parcelable {
         return uid;
     }
 
+    @Exclude
     public String getKey() {
         return key;
     }
