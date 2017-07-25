@@ -37,6 +37,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/CircleImageView-master/CircleImageView-master/gradle/wrapper/gradle-wrapper.jar')
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.wdullaer:swipeactionadapter:2.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
