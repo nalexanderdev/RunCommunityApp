@@ -1,5 +1,6 @@
 package com.nalexanderdev.runcommunity.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,6 +26,8 @@ import com.nalexanderdev.runcommunity.R;
 import com.nalexanderdev.runcommunity.adapters.PostListViewAdapter;
 import com.nalexanderdev.runcommunity.fragments.DeletePostDialog;
 import com.nalexanderdev.runcommunity.models.Post;
+import com.wdullaer.swipeactionadapter.SwipeActionAdapter;
+import com.wdullaer.swipeactionadapter.SwipeDirection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +82,53 @@ public class PostActivity extends BaseActivity {
         postList = new ArrayList<>();
         listView = (ListView) findViewById(R.id.listView);
         adapter = new PostListViewAdapter(this, R.layout.post_item, postList);
-        listView.setAdapter(adapter);
+        final SwipeActionAdapter swipeAdapter = new SwipeActionAdapter(adapter);
+        swipeAdapter.setListView(listView);
+        listView.setAdapter(swipeAdapter);
+
+        swipeAdapter.addBackground(SwipeDirection.DIRECTION_FAR_RIGHT,R.layout.post_list_swipe_background)
+                .addBackground(SwipeDirection.DIRECTION_NORMAL_RIGHT,R.layout.post_list_swipe_background);
+        swipeAdapter.setSwipeActionListener(new SwipeActionAdapter.SwipeActionListener() {
+            @Override
+            public boolean hasActions(int position, SwipeDirection direction) {
+                Post post = (Post) swipeAdapter.getItem(position);
+                Boolean isOwnPost = post.getUid().equals(user.getUid());
+
+                if(direction.isLeft()) return false;
+                if(direction.isRight()) return isOwnPost;
+                return false;
+            }
+
+            @Override
+            public boolean shouldDismiss(int position, SwipeDirection direction) {
+                return false;
+            }
+
+            @Override
+            public void onSwipe(int[] positionList, SwipeDirection[] directionList) {
+                for (int i = 0; i < positionList.length; i++) {
+                    SwipeDirection direction = directionList[i];
+                    int position = positionList[i];
+                    Post post = (Post) swipeAdapter.getItem(position);
+                    String key = post.getKey();
+                    Boolean isOwnPost = post.getUid().equals(user.getUid());
+                    switch (direction) {
+                        case DIRECTION_FAR_LEFT:
+                            break;
+                        case DIRECTION_NORMAL_LEFT:
+                            break;
+                        case DIRECTION_FAR_RIGHT:
+                        case DIRECTION_NORMAL_RIGHT:
+                            if (isOwnPost) {
+                                FragmentManager manager = getSupportFragmentManager();
+                                DeletePostDialog f = DeletePostDialog.newInstance(key);
+                                f.show(manager, "Delete Post");
+                            }
+                            break;
+                    }
+                }
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -113,6 +163,7 @@ public class PostActivity extends BaseActivity {
             }
         });
     }
+
 
     @Override
     protected void onStart(){
